@@ -1,70 +1,76 @@
 import CONFIG from '../../globals/config';
 
-const createRestaurantDetailTemplate = (restaurant) => `
-  <h2 class="restaurant__title">${restaurant.name}</h2>
-  <img class="restaurant__poster" src="${CONFIG.BASE_IMAGE_URL + restaurant.pictureId}" alt="${restaurant.name}" />
-  <div class="restaurant__info">
-    <h3>Informasi Terkait Restauran</h3>
-    <h4>Nama Resto :</h4>
-    <p>${restaurant.name}</p>
-    <h4>Kota :</h4>
-    <p>${restaurant.city}</p>
-    <h4>Alamat :</h4>
-    <p>${restaurant.address} minutes</p>
-    <h4>Rating :</h4>
-    <p>${restaurant.rating} ⭐️</p>
+const createRestaurantDetailTemplate = (resto) => `
+  <h2 class="resto__title">${resto.name}</h2>
+  <img class="resto__poster" src="${
+  CONFIG.BASE_IMAGE_URL + resto.pictureId
+}" alt="${resto.name}" />
+  <div class="resto__info">
+    <h4>Nama Restoran: <span class="isi">${resto.name}</span></h4>
+    <h4>Kota: <span class="isi">${resto.city}</span></h4>
+    <h4>Alamat: <span class="isi">${resto.address}</span></h4>
+    <h4>Rating: <span class="isi">${resto.rating} ⭐️</span></h4>
     <h4>Menu Makanan :</h4>
-    <p>${restaurant.menus.foods.map((food) => food.name)}</p>
+    <p>${resto.menus.foods.map((food) => food.name)}</p>
     <h4>Menu Minuman :</h4>
-    <p>${restaurant.menus.drinks.map((drink) => drink.name)}</p>
+    <p>${resto.menus.drinks.map((drink) => drink.name)}</p>
   </div>
-  <div class="restaurant__overview">
+  <div class="resto__overview">
     <h3>Overview</h3>
-    <p>${restaurant.description}</p>
+    <p>${resto.description}</p>
   </div>
-  <div class="review">
-  <h3>Reviews</h3>
-  <p>${restaurant.customerReviews
+  <br>
+  <hr>
+  <div class="resto__review">
+  <h2>COMMENT</h2>
+  <p>${resto.customerReviews
     .map(
-      (review) => `
-    <div class="review-head">
-    <p class="reviewer-name">${review.name} •</p>
-    <p class="review-date">${review.date}</p>
-    </div>
-    <p class="reviewer-review">${review.review}</p>
-
-    `
+      (comment) => `
+    <p class="name">${comment.name}</p>
+    <p class="date">${comment.date}</p>
+    <p class="comment">"${comment.review}"</p>
+    <hr>
+    `,
     )
     .join('<br>')}
+  </p>
   </div>
 `;
 
-const createRestaurantItemTemplate = (restaurants) => `
-  <div class="restaurant-item">
-    <div class="restaurant-item__header">
-      <img class="restaurant-item__header__poster lazyload" data-src="${CONFIG.BASE_IMAGE_URL + restaurants.pictureId} alt="${restaurants.name}"
-      src="${CONFIG.BASE_IMAGE_URL + restaurants.pictureId}">
-      <div class="restaurant-item__header__rating">
-        <p>⭐️<span class="restaurant-item__header__rating__score">${restaurants.rating}</span></p>
+const createRestoItemTemplate = (restos) => `
+  <div class="resto-item">
+    <div class="resto-item__header">
+      <img class="resto-item__header__poster" alt="${restos.name}"
+      src="${CONFIG.BASE_IMAGE_URL + restos.pictureId}">
+      <div class="resto-item__header__rating">
+        <p>⭐️<span class="resto-item__header__rating__score">${restos.rating}</span></p>
       </div>
     </div>
-    <div class="restaurant-item__content">
-      <h3 class="restaurant-item-content__name"><a href="/#/detail/${restaurants.id}">${restaurants.name}</a></h3>
-      <h4 class="restaurant-item-content__city">Kota: ${restaurants.city}</h4>
-      <p class="restaurant-item-content__description">${restaurants.description}</p>
+    <div class="resto-item__content">
+      <h3 class="resto-item-content__name"><a href="/#/detail/${restos.id}" id="judulKonten">${
+  restos.name
+}</a></h3>
+      <h4 class="resto-item-content__city">Kota: ${restos.city}</h4>
+      <p class="resto-item-content__description">${restos.description}</p>
     </div>
   </div>
 `;
-const createLikeRestaurantButtonTemplate = () => `
+
+const createLikeButtonTemplate = () => `
   <button aria-label="like this restaurant" id="likeButton" class="like">
      <i class="fa fa-heart-o" aria-hidden="true"></i>
   </button>
 `;
 
-const createUnlikeRestaurantButtonTemplate = () => `
-  <button aria-label="unlike this restaurant" id="likeButton" class="like">
+const createLikedButtonTemplate = () => `
+  <button aria-label="unlike this  , urant" id="likeButton" class="like">
     <i class="fa fa-heart" aria-hidden="true"></i>
   </button>
 `;
 
-export { createRestaurantItemTemplate, createRestaurantDetailTemplate, createLikeRestaurantButtonTemplate, createUnlikeRestaurantButtonTemplate };
+export {
+  createRestoItemTemplate,
+  createRestaurantDetailTemplate,
+  createLikeButtonTemplate,
+  createLikedButtonTemplate,
+};

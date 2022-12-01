@@ -1,25 +1,23 @@
-import FavoriteRestaurantIdb from '../../data/favorite-resto-idb';
-import { createRestaurantItemTemplate } from '../templates/template-creator';
+import FavoriteRestoIdb from '../../data/favorite-resto-idb';
+import { createRestoItemTemplate } from '../templates/template-creator';
 
-/* eslint-disable indent */
 const Favorite = {
   async render() {
     return `
-            <div class="content">
-            <h2 class="content__heading">Favorite Restaurant</h2>
-            <div id="restaurants" class="restaurants">
-        
-            </div>
-            </div>
-        `;
+      <div class="content">
+        <h2 class="content__heading">Favourite Catalogue</h2>
+        <div id="restos" class="restos"></div>
+      </div>
+    `;
   },
 
   async afterRender() {
     document.querySelector('#hero').style.display = 'none';
-    const restaurants = await FavoriteRestaurantIdb.getAllRestaurants();
-    const restaurantsContainer = document.querySelector('#restaurants');
-    restaurants.forEach((restaurant) => {
-      restaurantsContainer.innerHTML += createRestaurantItemTemplate(restaurant);
+    const restos = await FavoriteRestoIdb.getAllRestos();
+    const restosContainer = document.querySelector('#restos');
+
+    restos.forEach((resto) => {
+      restosContainer.innerHTML += createRestoItemTemplate(resto);
     });
   },
 };
