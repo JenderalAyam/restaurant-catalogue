@@ -1,25 +1,24 @@
-import RestaurantSource from '../../data/restaurant-source';
-import { createRestaurantItemTemplate } from '../templates/template-creator';
+import RestaurantSource from '../../data/restodb-source';
+import { createRestoItemTemplate } from '../templates/template-creator';
 
-const Restaurant = {
+const Detail = {
   async render() {
     return `
       <div class="content">
-      <h2 class="content__heading">Explore Restaurant</h2>
-        <div id="restaurants" class="restaurants">
-        </div>
+        <h2 class="content__heading">WELCOME TO RESTO CATALOGUE</h2>
+        <div id="restos" class="restos"></div>
       </div>
-      `;
+    `;
   },
 
   async afterRender() {
-    document.querySelector('#hero').style.display = 'grid';
-    const restaurant = await RestaurantSource.restaurantList();
-    const restaurantContainer = document.querySelector('#restaurants');
-    restaurant.forEach((resto) => {
-      restaurantContainer.innerHTML += createRestaurantItemTemplate(resto);
+    document.querySelector('#hero').style.display = '';
+    const restoran = await RestaurantSource.restaurantList();
+    const restaurantContainer = document.querySelector('#restos');
+    restoran.forEach((resto) => {
+      restaurantContainer.innerHTML += createRestoItemTemplate(resto);
     });
   },
 };
 
-export default Restaurant;
+export default Detail;
